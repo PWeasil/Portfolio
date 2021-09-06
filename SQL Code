@@ -1,1 +1,84 @@
+USE [PortfolioDB];
 
+--Converting start and end station id to nvarchar, converting ride_length to time, and doing the union into 202007_to_202107
+SELECT * INTO "202007_to_202107" FROM
+(SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202007-divvy-tripdata$']) as "202007"
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202008-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202009-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202010-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202011-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202012-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202102-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202103-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202104-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202105-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202106-divvy-tripdata$']
+UNION ALL
+SELECT ride_id, rideable_type, started_at, ended_at, CONVERT(time(0), ride_length) as ride_length_sec, day_of_week, start_station_name,
+	CAST(start_station_id as nvarchar) as start_station_id_nvc, end_station_name, CAST(end_station_id as nvarchar) as end_station_id_nvc,
+	start_lat, start_lng, end_lat, end_lng, member_casual
+		FROM [PortfolioDB].[dbo].['202107-divvy-tripdata$']
+
+SELECT *
+FROM "202007_to_202107"
+
+--Finding the most common station to start from
+SELECT start_station_name, COUNT(ride_id)
+FROM "202007_to_202107"
+GROUP BY start_station_name
+ORDER BY COUNT(ride_id) DESC
+
+--Finding the most common station to end from
+SELECT end_station_name, COUNT(ride_id)
+FROM "202007_to_202107"
+GROUP BY end_station_name
+ORDER BY COUNT(ride_id) DESC
+
+--Finding the average time of a trip for each day of week
+SELECT day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0)
+FROM "202007_to_202107"
+GROUP BY day_of_week
+ORDER BY day_of_week
