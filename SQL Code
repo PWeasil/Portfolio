@@ -82,3 +82,9 @@ SELECT day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) 
 FROM "202007_to_202107"
 GROUP BY day_of_week
 ORDER BY day_of_week
+
+--Finding the average time of a trip for each day of week per member/casual
+SELECT  member_casual, day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0)
+FROM "202007_to_202107"
+GROUP BY day_of_week, member_casual
+ORDER BY day_of_week, member_casual
