@@ -66,25 +66,25 @@ SELECT *
 FROM "202007_to_202107"
 
 --Finding the most common station to start from
-SELECT start_station_name, COUNT(ride_id)
+SELECT start_station_name, COUNT(ride_id) as ride_count
 FROM "202007_to_202107"
 GROUP BY start_station_name
 ORDER BY COUNT(ride_id) DESC
 
 --Finding the most common station to end from
-SELECT end_station_name, COUNT(ride_id)
+SELECT end_station_name, COUNT(ride_id) as ride_count
 FROM "202007_to_202107"
 GROUP BY end_station_name
 ORDER BY COUNT(ride_id) DESC
 
 --Finding the average time of a trip for each day of week
-SELECT day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0)
+SELECT day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0) as average_time
 FROM "202007_to_202107"
 GROUP BY day_of_week
 ORDER BY day_of_week
 
---Finding the average time of a trip for each day of week per member/casual
-SELECT  member_casual, day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0)
+--Finding the average time of a trip for each day of week for member/casual
+SELECT  member_casual, day_of_week, DATEADD(SECOND, AVG( DATEDIFF( SECOND, 0, ride_length_sec ) ), 0) as average_time 
 FROM "202007_to_202107"
 GROUP BY day_of_week, member_casual
 ORDER BY day_of_week, member_casual
