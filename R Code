@@ -1,6 +1,6 @@
 library(tidyverse)
 ggplot(data=full_divvy_tripdata)+geom_bar(mapping = aes(x=member_casual, fill=member_casual))+
-  xlab("Member/Casual Rider") + ylab("Number of Riders")+labs(fill="Key",title="Number of Riders: Member vs Casual")
+  xlab("Member/Casual Rider") + ylab("Number of Riders")+labs(fill="Key",title="Number of Riders: Member vs Casual") #plotting the count of members/casual riders
 
 mcgrouped <- full_divvy_tripdata %>% group_by(member_casual)
 mean_divvy <- aggregate(full_divvy_tripdata, by=list(full_divvy_tripdata$member_casual,full_divvy_tripdata$rideable_type), FUN=mean) #grouping by member_casual and rideable_type then taking the average
@@ -11,7 +11,7 @@ names(mean_divvy)[2]<-paste("RT") ##changing 'Group.2' column to RT as . messes 
 mean_divvy_subset = subset(mean_divvy, select = c(MC,ride_length_sec,RT) ) ##selecting only member_casual and average ride lengths
 
 Average_Ride_Length_plot <- ggplot(data=mean_divvy_subset, aes(x=MC, y=ride_length_sec, fill=MC))+geom_bar(stat="identity")+
-  labs(fill="Key", title = "Average Ride Length of Member and Casual Riders")+ xlab("Member/Casual Rider") + ylab("Average Ride Length (s)") ##plotting as a bar chart
+  labs(fill="Key", title = "Average Ride Length of Member and Casual Riders")+ xlab("Member/Casual Rider") + ylab("Average Ride Length (s)") ##plotting ride length of member/casual as a bar chart
 
 Average_Ride_Length_plot + facet_grid(rows = "RT")+ labs(title = "Average Ride Length for Member and Casual Riders per Bike Type")+
-  geom_text(aes(label=paste0(ride_length_sec)),position=position_dodge(width=0.9), vjust=2.5)
+  geom_text(aes(label=paste0(ride_length_sec)),position=position_dodge(width=0.9), vjust=2.5) ##plotting the ride length of member/casual riders per rideable type
