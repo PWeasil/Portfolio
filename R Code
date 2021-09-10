@@ -8,7 +8,7 @@ mean_divvy <- aggregate(full_divvy_tripdata, by=list(full_divvy_tripdata$member_
 names(mean_divvy)[1]<-paste("MC") ##changing 'Group.1' column to MC as . messes with functions
 names(mean_divvy)[2]<-paste("RT") ##changing 'Group.2' column to RT as . messes with functions
 
-mean_divvy_subset = subset(mean_divvy, select = c(MC,ride_length_sec,RT) ) ##selecting only member_casual and average ride lengths
+mean_divvy_subset = subset(mean_divvy, select = c(MC,ride_length_sec,RT) ) ##selecting only member_casual, average ride lengths, and rideable type
 
 Average_Ride_Length_plot <- ggplot(data=mean_divvy_subset, aes(x=MC, y=ride_length_sec, fill=MC))+geom_bar(stat="identity")+
   labs(fill="Key", title = "Average Ride Length of Member and Casual Riders")+ xlab("Member/Casual Rider") + ylab("Average Ride Length (s)") ##plotting ride length of member/casual as a bar chart
